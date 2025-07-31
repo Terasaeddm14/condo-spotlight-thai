@@ -1,7 +1,7 @@
 import { CondoProject, CondoUnit } from '@/types/condo';
 import condo1 from '@/assets/condo-1.jpg';
 import condo2 from '@/assets/condo-2.jpg';
-import condo3 from '@/assets/condo-3.jpg';
+import condo3 from '@/assets/Map10K.jpg';
 
 export const condoProjects: CondoProject[] = [
   {
