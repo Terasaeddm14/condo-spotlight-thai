@@ -5,30 +5,19 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Building2, MapPin, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
-
 const Index = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredProjects = condoProjects.filter(project =>
-    project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.developer.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+  const filteredProjects = condoProjects.filter(project => project.name.toLowerCase().includes(searchTerm.toLowerCase()) || project.location.toLowerCase().includes(searchTerm.toLowerCase()) || project.developer.toLowerCase().includes(searchTerm.toLowerCase()));
   const totalProjects = condoProjects.length;
   const totalUnits = condoProjects.reduce((sum, project) => sum + project.totalUnits, 0);
   const availableUnits = condoProjects.reduce((sum, project) => sum + project.availableUnits, 0);
-
-  return (
-    <div className="min-h-screen bg-gradient-surface">
+  return <div className="min-h-screen bg-gradient-surface">
       {/* Hero Section */}
       <div className="bg-gradient-primary text-white">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-up">
-              ค้นหาคอนโดในฝัน
-            </h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-up">CONDO list Avialable</h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90 animate-fade-up">
               เปรียบเทียบราคาและรายละเอียดคอนโดมิเนียมจากโครงการต่างๆ ในกรุงเทพมหานคร
             </p>
@@ -37,13 +26,7 @@ const Index = () => {
             <div className="max-w-2xl mx-auto mb-8 animate-fade-up">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="ค้นหาตามชื่อโครงการ สถานที่ หรือผู้พัฒนา..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 py-4 text-lg bg-white/95 backdrop-blur border-white/20 focus:border-white/40"
-                />
+                <Input type="text" placeholder="ค้นหาตามชื่อโครงการ สถานที่ หรือผู้พัฒนา..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-12 py-4 text-lg bg-white/95 backdrop-blur border-white/20 focus:border-black/40" />
               </div>
             </div>
 
@@ -80,18 +63,9 @@ const Index = () => {
           </p>
         </div>
 
-        {filteredProjects.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onClick={() => navigate(`/project/${project.id}`)}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16">
+        {filteredProjects.length > 0 ? <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map(project => <ProjectCard key={project.id} project={project} onClick={() => navigate(`/project/${project.id}`)} />)}
+          </div> : <div className="text-center py-16">
             <Building2 className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-xl font-medium text-foreground mb-2">
               ไม่พบโครงการที่ค้นหา
@@ -102,11 +76,8 @@ const Index = () => {
             <Button onClick={() => setSearchTerm('')} variant="outline">
               แสดงโครงการทั้งหมด
             </Button>
-          </div>
-        )}
+          </div>}
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
