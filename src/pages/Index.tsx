@@ -4,10 +4,31 @@ import { ProjectCard } from '@/components/ProjectCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, Building2, MapPin, TrendingUp } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 const Index = () => {
   const navigate = useNavigate();
+  const { user, loading, signOut } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Will redirect to auth
+  }
+
   const filteredProjects = condoProjects.filter(project => project.name.toLowerCase().includes(searchTerm.toLowerCase()) || project.location.toLowerCase().includes(searchTerm.toLowerCase()) || project.developer.toLowerCase().includes(searchTerm.toLowerCase()));
   const totalProjects = condoProjects.length;
   const totalUnits = condoProjects.reduce((sum, project) => sum + project.totalUnits, 0);
@@ -16,8 +37,20 @@ const Index = () => {
       {/* Hero Section */}
       <div className="bg-gradient-primary text-white">
         <div className="container mx-auto px-4 py-16">
+          <div className="flex justify-between items-start mb-8">
+            <div className="flex-1">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-up">CONDO list Available</h1>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-white/80">
+                Welcome, {user.email}
+              </span>
+              <Button onClick={signOut} variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                Sign Out
+              </Button>
+            </div>
+          </div>
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-up">CONDO list Avialable</h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90 animate-fade-up">
               เปรียบเทียบราคาและรายละเอียดคอนโดมิเนียมจากโครงการต่างๆ ในกรุงเทพมหานคร
             </p>
