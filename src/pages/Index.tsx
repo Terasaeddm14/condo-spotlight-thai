@@ -26,7 +26,7 @@ const Index = () => {
             <div className="max-w-2xl mx-auto mb-8 animate-fade-up">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                <Input type="text" placeholder="ค้นหาตามชื่อโครงการ สถานที่ หรือผู้พัฒนา..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-12 py-4 text-lg backdrop-blur border-white/20 focus:border-black/40 bg-slate-50 font-black" />
+                <Input type="text" placeholder="ค้นหาตามชื่อโครงการ สถานที่ หรือผู้พัฒนา..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-12 py-4 text-lg backdrop-blur border-white/20 focus:border-black/40 bg-slate-50 font-black text-black" />
               </div>
             </div>
 
